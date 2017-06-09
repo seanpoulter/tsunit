@@ -1,0 +1,25 @@
+{
+  "name": "xunit",
+  "version": "0.0.0",
+  "description": "Recreating Kent Beck's xUnit example from Test-Driven Development: By Example",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "tsc",
+    "test": "node Kata"
+  },
+  "keywords": [
+    "xunit",
+    "tdd",
+    "typescript"
+  ],
+  "author": {
+    "name": "Sean Poulter",
+    "email": "sean.poulter@gmail.com",
+    "url": "https://github.com/seanpoulter"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "nyc": "^11.0.2",
+    "typescript": "^2.3.4"
+  }
+}
