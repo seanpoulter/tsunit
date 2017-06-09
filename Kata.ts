@@ -8,14 +8,46 @@ class TestCase {
     setUp() {
     }
 
-    run() {
-        let method = (<any>this)[this.name];
+    run(): TestResult {
+        let result = new TestResult();
+
+        result.testStarted();
         this.setUp();
-        method.apply(this);
+        try {
+            let method = (<any>this)[this.name];
+            method.apply(this);
+        }
+        catch (e) {
+            result.testFailed();
+        }
         this.tearDown();
+
+        return result;
     }
 
     tearDown() {
+    }
+}
+
+class TestResult {
+    runCount: number;
+    errorCount: number;
+
+    constructor() {
+        this.runCount = 0;
+        this.errorCount = 0;
+    }
+
+    testStarted() {
+        this.runCount += 1;
+    }
+
+    testFailed() {
+        this.errorCount += 1;
+    }
+
+    summary(): string {
+        return `${this.runCount} run, ${this.errorCount} failed`;
     }
 }
 
@@ -35,6 +67,10 @@ class WasRun extends TestCase {
         this.log += 'testMethod ';
     }
 
+    testBrokenMethod() {
+        throw new Error();
+    }
+
     tearDown() {
         this.log += 'tearDown';
     }
@@ -51,6 +87,24 @@ class TestCaseTest extends TestCase {
         assert.equals('', this.test.log);
         this.test.run();
         assert.equals('setUp testMethod tearDown', this.test.log);
+    }
+
+    testResult() {
+        let result = this.test.run();
+        assert.equals('1 run, 0 failed', result.summary());
+    }
+
+    testFailedTest() {
+        let test = new WasRun('testBrokenMethod');
+        let result = test.run();
+        assert.equals('1 run, 1 failed', result.summary());
+    }
+
+    testFailedResultFormatting() {
+        let result = new TestResult();
+        result.testStarted();
+        result.testFailed();
+        assert.equals('1 run, 1 failed', result.summary());
     }
 }
 
@@ -72,4 +126,7 @@ namespace assert {
     }
 }
 
-new TestCaseTest('testTemplateMethod').run()
+console.log(new TestCaseTest('testTemplateMethod').run().summary())
+console.log(new TestCaseTest('testResult').run().summary())
+console.log(new TestCaseTest('testFailedTest').run().summary())
+console.log(new TestCaseTest('testFailedResultFormatting').run().summary())
