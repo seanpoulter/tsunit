@@ -5,18 +5,28 @@ class TestCase {
         this.name = name;
     }
 
+    setUp() {
+    }
+
     run() {
+        this.setUp();
         let method = (<any>this)[this.name];
         method.apply(this);
     }
 }
 
 class WasRun extends TestCase {
+    wasSetUp: boolean | null;
     wasRun: boolean | null;
 
     constructor(name: PropertyKey) {
         super(name)
+        this.wasSetUp = null;
         this.wasRun = null;
+    }
+
+    setUp() {
+        this.wasSetUp = true;
     }
 
     testMethod() {
@@ -25,11 +35,22 @@ class WasRun extends TestCase {
 }
 
 class TestCaseTest extends TestCase {
+    test: WasRun;
+
+    setUp() {
+        this.test = new WasRun('testMethod');
+    }
+
     testRunning() {
-        let test = new WasRun('testMethod');
-        assert.equals(null, test.wasRun);
-        test.run();
-        assert.equals(true, test.wasRun);
+        assert.equals(null, this.test.wasRun);
+        this.test.run();
+        assert.equals(true, this.test.wasRun);
+    }
+
+    testSetUp() {
+        assert.equals(null, this.test.wasSetUp);
+        this.test.run();
+        assert.equals(true, this.test.wasSetUp);
     }
 }
 
