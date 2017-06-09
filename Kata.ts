@@ -9,28 +9,34 @@ class TestCase {
     }
 
     run() {
-        this.setUp();
         let method = (<any>this)[this.name];
+        this.setUp();
         method.apply(this);
+        this.tearDown();
+    }
+
+    tearDown() {
     }
 }
 
 class WasRun extends TestCase {
-    wasSetUp: boolean | null;
-    wasRun: boolean | null;
+    log: string;
 
     constructor(name: PropertyKey) {
         super(name)
-        this.wasSetUp = null;
-        this.wasRun = null;
+        this.log = '';
     }
 
     setUp() {
-        this.wasSetUp = true;
+        this.log = 'setUp ';
     }
 
     testMethod() {
-        this.wasRun = true;
+        this.log += 'testMethod ';
+    }
+
+    tearDown() {
+        this.log += 'tearDown';
     }
 }
 
@@ -41,16 +47,10 @@ class TestCaseTest extends TestCase {
         this.test = new WasRun('testMethod');
     }
 
-    testRunning() {
-        assert.equals(null, this.test.wasRun);
+    testTemplateMethod() {
+        assert.equals('', this.test.log);
         this.test.run();
-        assert.equals(true, this.test.wasRun);
-    }
-
-    testSetUp() {
-        assert.equals(null, this.test.wasSetUp);
-        this.test.run();
-        assert.equals(true, this.test.wasSetUp);
+        assert.equals('setUp testMethod tearDown', this.test.log);
     }
 }
 
@@ -72,4 +72,4 @@ namespace assert {
     }
 }
 
-new TestCaseTest('testRunning').run()
+new TestCaseTest('testTemplateMethod').run()
