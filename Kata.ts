@@ -148,6 +148,12 @@ class TestCaseTest extends TestCase {
         this.result = this.test.run(this.result);
         assert.equals('setUp tearDown', this.test.log);
     }
+
+    testTearDownAlwaysRuns() {
+        this.test = new WasRun('testBrokenMethod');
+        this.test.run(this.result);
+        assert.equals('setUp tearDown', this.test.log);
+    }
 }
 
 namespace assert {
@@ -179,7 +185,8 @@ suite.add(
     new TestCaseTest('testFailedResult'),
     new TestCaseTest('testFailedResultFormatting'),
     new TestCaseTest('testSuite'),
-    new TestCaseTest('testFailedSetUp')
+    new TestCaseTest('testFailedSetUp'),
+    new TestCaseTest('testTearDownAlwaysRuns')
 );
 let result = new TestResult();
 suite.run(result);
