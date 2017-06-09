@@ -8,9 +8,7 @@ class TestCase {
     setUp() {
     }
 
-    run(): TestResult {
-        let result = new TestResult();
-
+    run(result: TestResult): TestResult {
         result.testStarted();
         this.setUp();
         try {
@@ -51,6 +49,25 @@ class TestResult {
     }
 }
 
+class TestSuite {
+    tests: TestCase[];
+
+    constructor() {
+        this.tests = [];
+    }
+
+    add(...tests: TestCase[]) {
+        this.tests.push(...tests);
+    }
+
+    run(result: TestResult) {
+        for (let i = 0; i < this.tests.length; i += 1) {
+            this.tests[i].run(result);
+        }
+        return result;
+    }
+}
+
 class WasRun extends TestCase {
     log: string;
 
@@ -78,33 +95,47 @@ class WasRun extends TestCase {
 
 class TestCaseTest extends TestCase {
     test: WasRun;
+    result: TestResult;
 
     setUp() {
-        this.test = new WasRun('testMethod');
+        this.result = new TestResult();
     }
 
     testTemplateMethod() {
+        this.test = new WasRun('testMethod');
         assert.equals('', this.test.log);
-        this.test.run();
+        this.test.run(this.result);
         assert.equals('setUp testMethod tearDown', this.test.log);
     }
 
     testResult() {
-        let result = this.test.run();
-        assert.equals('1 run, 0 failed', result.summary());
+        this.test = new WasRun('testMethod');
+        this.result = this.test.run(this.result);
+        assert.equals('1 run, 0 failed', this.result.summary());
     }
 
-    testFailedTest() {
-        let test = new WasRun('testBrokenMethod');
-        let result = test.run();
-        assert.equals('1 run, 1 failed', result.summary());
+    testFailedResult() {
+        this.test = new WasRun('testBrokenMethod');
+        this.result = this.test.run(this.result);
+        assert.equals('1 run, 1 failed', this.result.summary());
     }
 
     testFailedResultFormatting() {
-        let result = new TestResult();
-        result.testStarted();
-        result.testFailed();
-        assert.equals('1 run, 1 failed', result.summary());
+        this.result.testStarted();
+        this.result.testFailed();
+        assert.equals('1 run, 1 failed', this.result.summary());
+    }
+
+    testSuite() {
+        let suite = new TestSuite();
+        suite.add(
+            new WasRun('testMethod'),
+            new WasRun('testBrokenMethod')
+        );
+
+        this.result = new TestResult();
+        suite.run(this.result);
+        assert.equals('2 run, 1 failed', this.result.summary());
     }
 }
 
@@ -126,7 +157,14 @@ namespace assert {
     }
 }
 
-console.log(new TestCaseTest('testTemplateMethod').run().summary())
-console.log(new TestCaseTest('testResult').run().summary())
-console.log(new TestCaseTest('testFailedTest').run().summary())
-console.log(new TestCaseTest('testFailedResultFormatting').run().summary())
+let suite = new TestSuite();
+suite.add(
+    new TestCaseTest('testTemplateMethod'),
+    new TestCaseTest('testResult'),
+    new TestCaseTest('testFailedResult'),
+    new TestCaseTest('testFailedResultFormatting'),
+    new TestCaseTest('testSuite')
+);
+let result = new TestResult();
+suite.run(result);
+console.log(result.summary());
