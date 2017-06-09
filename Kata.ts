@@ -10,8 +10,9 @@ class TestCase {
 
     run(result: TestResult): TestResult {
         result.testStarted();
-        this.setUp();
+
         try {
+            this.setUp();
             let method = (<any>this)[this.name];
             method.apply(this);
         }
@@ -137,6 +138,16 @@ class TestCaseTest extends TestCase {
         suite.run(this.result);
         assert.equals('2 run, 1 failed', this.result.summary());
     }
+
+    testFailedSetUp() {
+        this.test = new WasRun('testMethod');
+        this.test.setUp = function failedSetUp() {
+            this.log = 'setUp ';
+            throw new Error();
+        }
+        this.result = this.test.run(this.result);
+        assert.equals('setUp tearDown', this.test.log);
+    }
 }
 
 namespace assert {
@@ -145,6 +156,10 @@ namespace assert {
             return;
 
         let message = `Expected ${expected} but was ${actual}`;
+        throw new AssertionFailedError(message);
+    }
+
+    export function fail(message: string) {
         throw new AssertionFailedError(message);
     }
 
@@ -163,7 +178,8 @@ suite.add(
     new TestCaseTest('testResult'),
     new TestCaseTest('testFailedResult'),
     new TestCaseTest('testFailedResultFormatting'),
-    new TestCaseTest('testSuite')
+    new TestCaseTest('testSuite'),
+    new TestCaseTest('testFailedSetUp')
 );
 let result = new TestResult();
 suite.run(result);
