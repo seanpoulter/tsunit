@@ -1,73 +1,4 @@
-class TestCase {
-    name: PropertyKey;
-
-    constructor(name: PropertyKey) {
-        this.name = name;
-    }
-
-    setUp() {
-    }
-
-    run(result: TestResult): TestResult {
-        result.testStarted();
-
-        try {
-            this.setUp();
-            let method = (<any>this)[this.name];
-            method.apply(this);
-        }
-        catch (e) {
-            result.testFailed();
-        }
-        this.tearDown();
-
-        return result;
-    }
-
-    tearDown() {
-    }
-}
-
-class TestResult {
-    runCount: number;
-    errorCount: number;
-
-    constructor() {
-        this.runCount = 0;
-        this.errorCount = 0;
-    }
-
-    testStarted() {
-        this.runCount += 1;
-    }
-
-    testFailed() {
-        this.errorCount += 1;
-    }
-
-    summary(): string {
-        return `${this.runCount} run, ${this.errorCount} failed`;
-    }
-}
-
-class TestSuite {
-    tests: TestCase[];
-
-    constructor() {
-        this.tests = [];
-    }
-
-    add(...tests: TestCase[]) {
-        this.tests.push(...tests);
-    }
-
-    run(result: TestResult) {
-        for (let i = 0; i < this.tests.length; i += 1) {
-            this.tests[i].run(result);
-        }
-        return result;
-    }
-}
+import {TestCase, TestResult, TestSuite, assert} from '../src';
 
 class WasRun extends TestCase {
     log: string;
@@ -153,28 +84,6 @@ class TestCaseTest extends TestCase {
         this.test = new WasRun('testBrokenMethod');
         this.test.run(this.result);
         assert.equals('setUp tearDown', this.test.log);
-    }
-}
-
-namespace assert {
-    export function equals(expected: any, actual: any) {
-        if (expected === actual)
-            return;
-
-        let message = `Expected ${expected} but was ${actual}`;
-        throw new AssertionFailedError(message);
-    }
-
-    export function fail(message: string) {
-        throw new AssertionFailedError(message);
-    }
-
-    class AssertionFailedError extends Error {
-        constructor(message: string) {
-            super(message);
-            this.name = this.constructor.name;
-            Object.setPrototypeOf(this, AssertionFailedError.prototype);
-        }
     }
 }
 
