@@ -1,6 +1,7 @@
+import {Test} from './Test';
 import {TestResult} from './TestResult';
 
-export class TestCase {
+export class TestCase implements Test {
     name: PropertyKey;
 
     constructor(name: PropertyKey) {
@@ -24,6 +25,35 @@ export class TestCase {
         this.tearDown();
 
         return result;
+    }
+
+    countTestCases(): number {
+        let tests = this.getTestFunctions();
+        return tests.length;
+    }
+
+    private getTestFunctions(): symbol[] {
+        let tests: symbol[] = [];
+
+        let proto = Object.getPrototypeOf(this);
+        const constructorName = proto.name;
+
+        let props = Object.getOwnPropertyNames(proto);
+        for (let i = 0; i < props.length; i += 1) {
+            if (this.isTestFunction(props[i]))
+                tests.push((<any> this)[props[i]]);
+        }
+
+        return tests;
+    }
+
+    private isTestFunction(propertyName: string): boolean {
+        let property = (<any> this)[propertyName];
+
+        if (typeof property !== 'function')
+            return false;
+
+        return property.name.startsWith('test');
     }
 
     tearDown() {

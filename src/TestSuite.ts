@@ -1,7 +1,8 @@
+import {Test} from './Test';
 import {TestCase} from './TestCase';
 import {TestResult} from './TestResult';
 
-export class TestSuite {
+export class TestSuite implements Test {
     tests: TestCase[];
 
     constructor() {
@@ -10,6 +11,10 @@ export class TestSuite {
 
     add(...tests: TestCase[]) {
         this.tests.push(...tests);
+    }
+
+    countTestCases(): number {
+        return this.tests.length;
     }
 
     run(result: TestResult) {

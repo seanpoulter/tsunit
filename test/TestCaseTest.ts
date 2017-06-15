@@ -85,6 +85,11 @@ class TestCaseTest extends TestCase {
         this.test.run(this.result);
         assert.equals('setUp tearDown', this.test.log);
     }
+
+    testCountTestCases() {
+        let sut = new WasRun('testMethod');
+        assert.equals(2, sut.countTestCases());
+    }
 }
 
 let suite = new TestSuite();
@@ -95,7 +100,8 @@ suite.add(
     new TestCaseTest('testFailedResultFormatting'),
     new TestCaseTest('testSuite'),
     new TestCaseTest('testFailedSetUp'),
-    new TestCaseTest('testTearDownAlwaysRuns')
+    new TestCaseTest('testTearDownAlwaysRuns'),
+    new TestCaseTest('testCountTestCases')
 );
 let result = new TestResult();
 suite.run(result);
