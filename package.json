@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "pretest": "tsc",
-    "test": "node Kata"
+    "test": "node dist/Kata"
   },
   "keywords": [
     "xunit",
