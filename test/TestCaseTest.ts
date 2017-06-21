@@ -1,29 +1,5 @@
 import {TestCase, TestResult, TestSuite, assert} from '../src';
-
-class WasRun extends TestCase {
-    log: string;
-
-    constructor(name: PropertyKey) {
-        super(name)
-        this.log = '';
-    }
-
-    setUp() {
-        this.log = 'setUp ';
-    }
-
-    testMethod() {
-        this.log += 'testMethod ';
-    }
-
-    testBrokenMethod() {
-        throw new Error();
-    }
-
-    tearDown() {
-        this.log += 'tearDown';
-    }
-}
+import {WasRun} from './WasRun';
 
 class TestCaseTest extends TestCase {
     test: WasRun;
