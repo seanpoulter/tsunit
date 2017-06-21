@@ -15,3 +15,5 @@ Following along with Kent Beck's **Test-Driven Development: By Example**.
   - ~~Catch and report setUp errors~~
   - Create TestSuite from a TestCase class
   - Import the Test interface
+  - Report which Tests failed
+  - Report the stack trace of failing tests

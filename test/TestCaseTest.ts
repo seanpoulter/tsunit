@@ -34,18 +34,6 @@ class TestCaseTest extends TestCase {
         assert.equals('1 run, 1 failed', this.result.summary());
     }
 
-    testSuite() {
-        let suite = new TestSuite();
-        suite.add(
-            new WasRun('testMethod'),
-            new WasRun('testBrokenMethod')
-        );
-
-        this.result = new TestResult();
-        suite.run(this.result);
-        assert.equals('2 run, 1 failed', this.result.summary());
-    }
-
     testFailedSetUp() {
         this.test = new WasRun('testMethod');
         this.test.setUp = function failedSetUp() {
@@ -74,7 +62,6 @@ suite.add(
     new TestCaseTest('testResult'),
     new TestCaseTest('testFailedResult'),
     new TestCaseTest('testFailedResultFormatting'),
-    new TestCaseTest('testSuite'),
     new TestCaseTest('testFailedSetUp'),
     new TestCaseTest('testTearDownAlwaysRuns'),
     new TestCaseTest('testCountTestCases')
