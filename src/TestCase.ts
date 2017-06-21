@@ -28,8 +28,7 @@ export class TestCase implements Test {
     }
 
     countTestCases(): number {
-        let tests = this.getTestFunctions();
-        return tests.length;
+        return 1;
     }
 
     private getTestFunctions(): symbol[] {

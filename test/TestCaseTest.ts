@@ -52,7 +52,7 @@ class TestCaseTest extends TestCase {
 
     testCountTestCases() {
         let sut = new WasRun('testMethod');
-        assert.equals(2, sut.countTestCases());
+        assert.equals(1, sut.countTestCases());
     }
 }
 
