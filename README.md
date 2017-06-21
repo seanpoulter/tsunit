@@ -13,7 +13,12 @@ Following along with Kent Beck's **Test-Driven Development: By Example**.
   - ~~Log string in WasRun~~
   - ~~Report failed tests~~
   - ~~Catch and report setUp errors~~
-  - Create TestSuite from a TestCase class
+  - ~~Create TestSuite from a TestCase class~~
   - ~~Implement the Test interface~~
   - Report which Tests failed
   - Report the stack trace of failing tests
+  - Create a test runner
+  - Discover tests in test/
+  - Run discovered tests
+  - Run tests in parallel
+  - Run tests in random order

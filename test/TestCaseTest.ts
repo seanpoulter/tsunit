@@ -56,16 +56,7 @@ class TestCaseTest extends TestCase {
     }
 }
 
-let suite = new TestSuite();
-suite.add(
-    new TestCaseTest('testRun'),
-    new TestCaseTest('testResult'),
-    new TestCaseTest('testFailedResult'),
-    new TestCaseTest('testFailedResultFormatting'),
-    new TestCaseTest('testFailedSetUp'),
-    new TestCaseTest('testTearDownAlwaysRuns'),
-    new TestCaseTest('testCountTestCases')
-);
+let suite = new TestSuite(TestCaseTest);
 let result = new TestResult();
 suite.run(result);
 console.log(result.summary());

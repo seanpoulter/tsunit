@@ -37,14 +37,14 @@ class TestSuiteTest extends TestCase {
         suite.run(result);
         assert.equals('2 run, 1 failed', result.summary());
     }
+
+    testCreateFromTestCase() {
+        let suite = new TestSuite(WasRun);
+        assert.equals(2, suite.countTestCases());
+    }
 }
 
-let suite = new TestSuite();
-suite.add(
-    new TestSuiteTest('testAdd'),
-    new TestSuiteTest('testCountTestCases'),
-    new TestSuiteTest('testRun')
-);
+let suite = new TestSuite(TestSuiteTest);
 let result = new TestResult();
 suite.run(result);
 console.log(result.summary());
