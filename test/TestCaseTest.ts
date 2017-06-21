@@ -9,7 +9,7 @@ class TestCaseTest extends TestCase {
         this.result = new TestResult();
     }
 
-    testTemplateMethod() {
+    testRun() {
         this.test = new WasRun('testMethod');
         assert.equals('', this.test.log);
         this.test.run(this.result);
@@ -58,7 +58,7 @@ class TestCaseTest extends TestCase {
 
 let suite = new TestSuite();
 suite.add(
-    new TestCaseTest('testTemplateMethod'),
+    new TestCaseTest('testRun'),
     new TestCaseTest('testResult'),
     new TestCaseTest('testFailedResult'),
     new TestCaseTest('testFailedResultFormatting'),
