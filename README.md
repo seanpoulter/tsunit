@@ -16,10 +16,14 @@ Following along with Kent Beck's **Test-Driven Development: By Example**.
   - ~~Create TestSuite from a TestCase class~~
   - ~~Implement the Test interface~~
   - ~~Test assert methods~~
+  - Report the name of the TestSuite
   - Report which Tests failed
   - Report the stack trace of failing tests
-  - Create a test runner
-  - Discover tests in test/
-  - Run discovered tests
+  - Create a test runner (e.g.: node app [directory])
+  - Dynamically import TestCases from a module
+  - ~~Resolve a module path relative to the working directory of the Node process~~
+  - Run discovered TestCases from a module
+  - Discover all modules with TestCases in a directory
+  - Run all dicovered TestCases from a directory
   - Run tests in parallel
   - Run tests in random order
