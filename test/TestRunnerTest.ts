@@ -6,6 +6,12 @@ class TestRunnerTest extends TestCase {
         const actual = TestRunner.convertProjectRelativePathToModuleId('dist/test/WasRun');
         assert.equals('../test/WasRun', actual);
     }
+
+    testImportModule() {
+        let actual = TestRunner.importTestCases('dist/test/WasRun');
+        assert.equals(1, actual.length);
+        assert.equals('WasRun', actual[0].name);
+    }
 }
 
 let suite = new TestSuite(TestRunnerTest);

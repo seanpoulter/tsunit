@@ -20,7 +20,7 @@ Following along with Kent Beck's **Test-Driven Development: By Example**.
   - Report which Tests failed
   - Report the stack trace of failing tests
   - Create a test runner (e.g.: node app [directory])
-  - Dynamically import TestCases from a module
+  - ~~Import TestCases from a module path~~
   - ~~Resolve a module path relative to the working directory of the Node process~~
   - Run discovered TestCases from a module
   - Discover all modules with TestCases in a directory
