@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "pretest": "tsc",
-    "test": "node dist/test/TestCaseTest && node dist/test/TestSuiteTest && node dist/test/AssertTest"
+    "test": "node dist/test/TestCaseTest && node dist/test/TestSuiteTest && node dist/test/AssertTest && node dist/test/TestResultTest"
   },
   "keywords": [
     "xunit",

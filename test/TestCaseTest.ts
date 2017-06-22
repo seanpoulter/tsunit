@@ -19,19 +19,15 @@ class TestCaseTest extends TestCase {
     testResult() {
         this.test = new WasRun('testMethod');
         this.result = this.test.run(this.result);
-        assert.equals('1 run, 0 failed', this.result.summary());
+        assert.equals(1, this.result.runCount);
+        assert.equals(0, this.result.errorCount);
     }
 
     testFailedResult() {
         this.test = new WasRun('testBrokenMethod');
         this.result = this.test.run(this.result);
-        assert.equals('1 run, 1 failed', this.result.summary());
-    }
-
-    testFailedResultFormatting() {
-        this.result.testStarted();
-        this.result.testFailed();
-        assert.equals('1 run, 1 failed', this.result.summary());
+        assert.equals(1, this.result.runCount);
+        assert.equals(1, this.result.errorCount);
     }
 
     testFailedSetUp() {
