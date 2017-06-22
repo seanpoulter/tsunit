@@ -11,7 +11,7 @@ export namespace assert {
         throw new AssertionFailedError(message);
     }
 
-    class AssertionFailedError extends Error {
+    export class AssertionFailedError extends Error {
         constructor(message: string) {
             super(message);
             this.name = this.constructor.name;
