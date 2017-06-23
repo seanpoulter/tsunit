@@ -46,8 +46,3 @@ export class AssertTest extends TestCase {
         }
     }
 }
-
-let suite = new TestSuite(AssertTest);
-let result = new TestResult();
-suite.run(result);
-console.log(result.summary());

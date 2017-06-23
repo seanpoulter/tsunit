@@ -21,8 +21,3 @@ export class TestResultTest extends TestCase {
         assert.equals('1 run, 1 failed', sut.summary());
     }
 }
-
-let suite = new TestSuite(TestResultTest);
-let result = new TestResult();
-result = suite.run(result);
-console.log(result.summary());

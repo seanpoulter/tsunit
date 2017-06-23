@@ -43,8 +43,3 @@ export class TestSuiteTest extends TestCase {
         assert.equals(2, suite.countTestCases());
     }
 }
-
-let suite = new TestSuite(TestSuiteTest);
-let result = new TestResult();
-suite.run(result);
-console.log(result.summary());

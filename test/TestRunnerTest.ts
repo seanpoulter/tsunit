@@ -30,9 +30,10 @@ export class TestRunnerTest extends TestCase {
 
     testFindFiles() {
         let actual = TestRunner.findFiles('dist/test');
-        assert.equals(6, actual.length);
+        assert.equals(7, actual.length);
 
         const expected = [
+            'dist\\test\\AppTest.js',
             'dist\\test\\AssertTest.js',
             'dist\\test\\TestCaseTest.js',
             'dist\\test\\TestResultTest.js',
@@ -43,8 +44,3 @@ export class TestRunnerTest extends TestCase {
         assert.equals(expected, actual);
     }
 }
-
-let suite = new TestSuite(TestRunnerTest);
-let result = new TestResult();
-result = suite.run(result);
-console.log(result.summary());

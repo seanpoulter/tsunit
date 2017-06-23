@@ -51,8 +51,3 @@ export class TestCaseTest extends TestCase {
         assert.equals(1, sut.countTestCases());
     }
 }
-
-let suite = new TestSuite(TestCaseTest);
-let result = new TestResult();
-suite.run(result);
-console.log(result.summary());
