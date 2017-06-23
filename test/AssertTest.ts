@@ -1,6 +1,6 @@
 import {assert, TestCase, TestSuite, TestResult} from '../src';
 
-class AssertTest extends TestCase {
+export class AssertTest extends TestCase {
     testEquals() {
         try {
             assert.equals(1, 1);

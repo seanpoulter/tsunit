@@ -1,7 +1,7 @@
 import {TestCase, assert, TestSuite, TestResult} from '../src/';
 import {TestRunner} from '../src/TestRunner';
 
-class TestRunnerTest extends TestCase {
+export class TestRunnerTest extends TestCase {
     testConvertToModuleId() {
         const actual = TestRunner.convertToModuleId('dist/test/WasRun');
         assert.equals('../test/WasRun', actual);
@@ -26,6 +26,21 @@ class TestRunnerTest extends TestCase {
         );
         assert.equals(4, result.runCount);
         assert.equals(2, result.errorCount);
+    }
+
+    testFindFiles() {
+        let actual = TestRunner.findFiles('dist/test');
+        assert.equals(6, actual.length);
+
+        const expected = [
+            'dist\\test\\AssertTest.js',
+            'dist\\test\\TestCaseTest.js',
+            'dist\\test\\TestResultTest.js',
+            'dist\\test\\TestRunnerTest.js',
+            'dist\\test\\TestSuiteTest.js',
+            'dist\\test\\WasRun.js'
+        ];
+        assert.equals(expected, actual);
     }
 }
 

@@ -1,7 +1,7 @@
 import {assert, TestCase, TestSuite, TestResult} from '../src';
 import {WasRun} from './WasRun';
 
-class TestSuiteTest extends TestCase {
+export class TestSuiteTest extends TestCase {
     constructor(method: string) {
         super(method);
     }

@@ -3,6 +3,9 @@ import {TestCaseConstructor, TestCase} from './TestCase';
 import {TestResult} from './TestResult';
 import {TestSuite} from './TestSuite';
 
+import {readdirSync, statSync} from 'fs';
+import {join} from 'path';
+
 function onWindows(): boolean {
     return process.platform.startsWith('win');
 }
@@ -78,8 +81,30 @@ export class TestRunner {
         let result = new TestResult();
 
         for (let i = 0; i < paths.length; i += 1)
-            TestRunner.runModule(paths[i], result);
+            result = TestRunner.runModule(paths[i], result);
 
         return result;
+    }
+
+    static findFiles(path: string): string[] {
+        let filepaths = [];
+
+        let names = readdirSync(path);
+        for (let i = 0; i < names.length; i += 1) {
+            let p = join(path, names[i]);
+            let stats = statSync(p);
+
+            if (stats.isFile())
+                filepaths.push(p);
+            else if (stats.isDirectory())
+                filepaths.push(...TestRunner.findFiles(p));
+        }
+
+        return filepaths;
+    }
+
+    static run(path: string): TestResult {
+        let paths = TestRunner.findFiles(path);
+        return TestRunner.runModules(...paths);
     }
 }

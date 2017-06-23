@@ -1,7 +1,7 @@
 import {TestCase, TestResult, assert} from '../src';
 import {TestSuite} from '../src';
 
-class TestResultTest extends TestCase {
+export class TestResultTest extends TestCase {
     testTestStarted() {
         let sut = new TestResult();
         sut.testStarted();
