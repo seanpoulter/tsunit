@@ -20,13 +20,23 @@ export class TestCaseTest extends TestCase {
         this.test = new WasRun('testMethod');
         this.result = this.test.run(this.result);
         assert.equals(1, this.result.runCount);
+        assert.equals(0, this.result.failureCount);
         assert.equals(0, this.result.errorCount);
     }
 
-    testFailedResult() {
+    testFailingResult() {
+        this.test = new WasRun('testFailingMethod');
+        this.result = this.test.run(this.result);
+        assert.equals(1, this.result.runCount);
+        assert.equals(1, this.result.failureCount);
+        assert.equals(0, this.result.errorCount);
+    }
+
+    testErrorResult() {
         this.test = new WasRun('testBrokenMethod');
         this.result = this.test.run(this.result);
         assert.equals(1, this.result.runCount);
+        assert.equals(0, this.result.failureCount);
         assert.equals(1, this.result.errorCount);
     }
 

@@ -15,7 +15,8 @@ export class TestRunnerTest extends TestCase {
 
     testRunModule() {
         let result = TestRunner.runModule('dist/test/WasRun');
-        assert.equals(2, result.runCount);
+        assert.equals(3, result.runCount);
+        assert.equals(1, result.failureCount);
         assert.equals(1, result.errorCount);
     }
 
@@ -24,7 +25,8 @@ export class TestRunnerTest extends TestCase {
             'dist/test/WasRun',
             'dist/test/WasRun'
         );
-        assert.equals(4, result.runCount);
+        assert.equals(6, result.runCount);
+        assert.equals(2, result.failureCount);
         assert.equals(2, result.errorCount);
     }
 

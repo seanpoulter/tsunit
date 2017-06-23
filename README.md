@@ -19,6 +19,7 @@ Following along with Kent Beck's **Test-Driven Development: By Example**.
   - Report the name of the TestSuite
   - Report which tests failed
   - Report which tests had errors
+  - ~~Differentiate between test failures and errors~~
   - Report the stack trace of failing tests
   - Report the total test run duration
   - Report the test suite run duration

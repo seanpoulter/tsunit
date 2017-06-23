@@ -1,4 +1,4 @@
-import {TestCase} from '../src';
+import {TestCase, assert} from '../src';
 
 export class WasRun extends TestCase {
     log: string;
@@ -14,6 +14,10 @@ export class WasRun extends TestCase {
 
     testMethod() {
         this.log += 'testMethod ';
+    }
+
+    testFailingMethod() {
+        assert.equals(true, false);
     }
 
     testBrokenMethod() {

@@ -1,5 +1,6 @@
 import {Test} from './Test';
 import {TestResult} from './TestResult';
+import {assert} from './assert';
 
 export interface TestCaseConstructor {
     new(name: PropertyKey): TestCase
@@ -24,7 +25,10 @@ export class TestCase implements Test {
             method.apply(this);
         }
         catch (e) {
-            result.testFailed();
+            if (e instanceof assert.AssertionFailedError)
+                result.testFailed();
+            else
+                result.testError();
         }
         this.tearDown();
 

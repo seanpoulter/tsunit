@@ -30,17 +30,18 @@ export class TestSuiteTest extends TestCase {
         let suite = new TestSuite();
         suite.add(
             new WasRun('testMethod'),
+            new WasRun('testFailingMethod'),
             new WasRun('testBrokenMethod')
         );
 
         let result = new TestResult();
         suite.run(result);
-        assert.equals('2 run, 1 failed', result.summary());
+        assert.equals('3 run, 1 failed, 1 error', result.summary());
     }
 
     testCreateFromTestCase() {
         let suite = new TestSuite(WasRun);
-        assert.equals(2, suite.countTestCases());
+        assert.equals(3, suite.countTestCases());
     }
 
     testName() {

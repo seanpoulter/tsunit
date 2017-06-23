@@ -11,6 +11,12 @@ export class TestResultTest extends TestCase {
     testTestFailed() {
         let sut = new TestResult();
         sut.testFailed();
+        assert.equals(1, sut.failureCount);
+    }
+
+    testTestError() {
+        let sut = new TestResult();
+        sut.testError();
         assert.equals(1, sut.errorCount);
     }
 
@@ -18,6 +24,7 @@ export class TestResultTest extends TestCase {
         let sut = new TestResult();
         sut.testStarted();
         sut.testFailed();
-        assert.equals('1 run, 1 failed', sut.summary());
+        sut.testError();
+        assert.equals('1 run, 1 failed, 1 error', sut.summary());
     }
 }
