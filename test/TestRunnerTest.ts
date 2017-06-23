@@ -32,11 +32,12 @@ export class TestRunnerTest extends TestCase {
 
     testFindFiles() {
         let actual = TestRunner.findFiles('dist/test');
-        assert.equals(7, actual.length);
+        assert.equals(8, actual.length);
 
         const expected = [
             'dist\\test\\AppTest.js',
             'dist\\test\\AssertTest.js',
+            'dist\\test\\IgnoreDecoratorTest.js',
             'dist\\test\\TestCaseTest.js',
             'dist\\test\\TestResultTest.js',
             'dist\\test\\TestRunnerTest.js',

@@ -26,10 +26,15 @@ Following along with Kent Beck's **Test-Driven Development: By Example**.
   - Report the test suite run duration
   - Report the test case run duration
   - ~~Create a test runner (e.g.: node app [directory])~~
+  - Accept a file as an argument to the app
+  - Accept a glob as an argument to the app
+  - Accept a list of directory, file, or globs
+  - Accept an array of files or directories
   - ~~Import TestCases from a module path~~
   - ~~Resolve a module path relative to the working directory of the Node process~~
   - ~~Run discovered TestCases from a module~~
   - ~~Run all dicovered TestCases from a directory~~
+  - ~~Add a decorator to ignore TestCases being added to suites~~
   - Display command-line usage when run with --help or incorrect arguments
   - Add command line option to bail after first error, --failFast
   - Add command line option to list available reporters

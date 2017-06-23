@@ -38,6 +38,9 @@ export class TestSuite implements Test {
     }
 
     private static getTestMethods(constructor: TestCaseConstructor): string[] {
+        if (constructor.name === 'IgnoredTestCase')
+            return [];
+
         let methods = [];
 
         let prototype = constructor.prototype;

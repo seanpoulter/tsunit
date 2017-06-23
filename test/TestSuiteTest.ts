@@ -1,4 +1,4 @@
-import {TestCase, assert, TestSuite, TestResult} from '../src';
+import {TestCase, assert, TestSuite, TestResult, ignore} from '../src';
 import {WasRun} from './WasRun';
 
 export class TestSuiteTest extends TestCase {
@@ -47,5 +47,16 @@ export class TestSuiteTest extends TestCase {
     testName() {
         let suite = new TestSuite(WasRun);
         assert.equals('WasRun', suite.name);
+    }
+
+    testCreateFromIgnoredTestCase() {
+        @ignore
+        class Nope extends TestCase {
+            testFeature() {
+            }
+        }
+
+        let suite = new TestSuite(Nope);
+        assert.equals(0, suite.countTestCases());
     }
 }
