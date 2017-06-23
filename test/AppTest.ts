@@ -1,7 +1,7 @@
 import {TestCase, assert} from '../src';
 import {App, InvalidCommandLineArgumentError} from '../src/App';
 
-class AppTest extends TestCase {
+export class AppTest extends TestCase {
     testParseArguments() {
         let config = App.parseArguments(['node', '...\App']);
         assert.equals('test', config.directory);

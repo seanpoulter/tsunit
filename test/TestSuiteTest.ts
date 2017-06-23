@@ -1,4 +1,4 @@
-import {assert, TestCase, TestSuite, TestResult} from '../src';
+import {TestCase, assert, TestSuite, TestResult} from '../src';
 import {WasRun} from './WasRun';
 
 export class TestSuiteTest extends TestCase {
