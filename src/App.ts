@@ -30,7 +30,27 @@ export class App {
 
     run() {
         let result = TestRunner.run(this.config.directory);
+
         console.log(result.summary());
+        console.log();
+
+        if (result.failureCount > 0) {
+            console.log('Failures:');
+            for (let i = 0; i < result.failures.length; i += 1) {
+                console.log(`\t${result.failures[i].test}`);
+                console.log(result.failures[i].err.toString());
+            }
+            console.log();
+        }
+
+        if (result.errorCount > 0) {
+            console.log('Errors:');
+            for (let i = 0; i < result.errors.length; i += 1) {
+                console.log(`\t${result.errors[i].test}`);
+                console.log(result.errors[i].err);
+            }
+            console.log();
+        }
     }
 }
 

@@ -26,9 +26,9 @@ export class TestCase implements Test {
         }
         catch (e) {
             if (e instanceof assert.AssertionFailedError)
-                result.testFailed();
+                result.testFailed(this, e);
             else
-                result.testError();
+                result.testError(this, e);
         }
         this.tearDown();
 
@@ -40,5 +40,9 @@ export class TestCase implements Test {
     }
 
     tearDown() {
+    }
+
+    toString() {
+        return `${this.constructor.name} ${this.name}`;
     }
 }

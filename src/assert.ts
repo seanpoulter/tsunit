@@ -42,5 +42,12 @@ export namespace assert {
             if (typeof actual !== 'undefined')
                 this.actual = actual;
         }
+
+        public toString(): string {
+            if (typeof this.stack === 'undefined')
+                return super.toString();
+
+            return this.stack;
+        }
     }
 }

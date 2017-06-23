@@ -1,4 +1,5 @@
 import {TestCase, TestResult, assert} from '../src';
+import {WasRun} from './WasRun';
 
 export class TestResultTest extends TestCase {
     testTestStarted() {
@@ -9,21 +10,34 @@ export class TestResultTest extends TestCase {
 
     testTestFailed() {
         let sut = new TestResult();
-        sut.testFailed();
+        let test = new WasRun('testFailingMethod');
+        let err = new assert.AssertionFailedError('');
+        sut.testFailed(test, err);
+
         assert.equals(1, sut.failureCount);
     }
 
     testTestError() {
         let sut = new TestResult();
-        sut.testError();
+        let test = new WasRun('testBrokenMethod');
+        let err = new Error();
+        sut.testError(test, err);
+
         assert.equals(1, sut.errorCount);
     }
 
     testSummary() {
         let sut = new TestResult();
         sut.testStarted();
-        sut.testFailed();
-        sut.testError();
+
+        let test = new WasRun('testFailingMethod');
+        let failure = new assert.AssertionFailedError('');
+        sut.testFailed(test, failure);
+
+        test = new WasRun('testBrokenMethod');
+        let err = new Error();
+        sut.testError(test, err);
+
         assert.equals('1 run, 1 failed, 1 error', sut.summary());
     }
 }
