@@ -42,4 +42,9 @@ export class TestSuiteTest extends TestCase {
         let suite = new TestSuite(WasRun);
         assert.equals(2, suite.countTestCases());
     }
+
+    testName() {
+        let suite = new TestSuite(WasRun);
+        assert.equals('WasRun', suite.name);
+    }
 }

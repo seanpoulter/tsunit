@@ -17,7 +17,8 @@ Following along with Kent Beck's **Test-Driven Development: By Example**.
   - ~~Implement the Test interface~~
   - ~~Test assert methods~~
   - Report the name of the TestSuite
-  - Report which Tests failed
+  - Report which tests failed
+  - Report which tests had errors
   - Report the stack trace of failing tests
   - Report the total test run duration
   - Report the test suite run duration

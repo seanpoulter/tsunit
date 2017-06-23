@@ -4,12 +4,15 @@ import {TestResult} from './TestResult';
 
 export class TestSuite implements Test {
     tests: TestCase[];
+    name: string;
 
     constructor(test?: TestCaseConstructor) {
         this.tests = [];
 
-        if (test)
+        if (test) {
             this.addTestCaseMethods(test);
+            this.name = test.name;
+        }
     }
 
     add(...tests: TestCase[]) {
