@@ -21,6 +21,19 @@ class AssertTest extends TestCase {
         }
     }
 
+    testArrayEquals() {
+        assert.equals([1, 2, 3], [1, 2, 3]);
+    }
+
+    testArrayEqualsFailed() {
+        try {
+            assert.equals([1, 2, 3], ['1', '2', '3']);
+            assert.fail('Expected an AssertionFailedError to be thrown');
+        } catch (e) {
+            assert.equals(true, e instanceof assert.AssertionFailedError);
+        }
+    }
+
     testFail() {
         let message = 'A message';
         try {
