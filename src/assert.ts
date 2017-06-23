@@ -7,7 +7,7 @@ export namespace assert {
             if (deepEquals(expected, actual))
                 return;
 
-        let message = `Expected ${expected} but was ${actual}`;
+        let message = `Expected ${formatValue(expected)} but was ${formatValue(actual)}`;
         throw new AssertionFailedError(message, expected, actual);
     }
 
@@ -21,6 +21,15 @@ export namespace assert {
         }
 
         return true;
+    }
+
+    function formatValue(arg: any): string {
+        if (typeof arg === 'string')
+            return `'${arg}'`;
+        else if (arg instanceof Array)
+            return `[${arg.map(formatValue)}]`;
+
+        return arg.toString();
     }
 
     export function fail(message: string) {
