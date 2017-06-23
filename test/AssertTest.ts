@@ -18,6 +18,8 @@ export class AssertTest extends TestCase {
         catch (e) {
             assert.equals(true, e instanceof assert.AssertionFailedError);
             assert.equals('Expected 0 but was 1', e.message);
+            assert.equals(0, e.expected);
+            assert.equals(1, e.actual);
         }
     }
 

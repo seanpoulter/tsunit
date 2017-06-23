@@ -8,7 +8,7 @@ export namespace assert {
                 return;
 
         let message = `Expected ${expected} but was ${actual}`;
-        throw new AssertionFailedError(message);
+        throw new AssertionFailedError(message, expected, actual);
     }
 
     function deepEquals(expected: any[], actual: any[]): boolean {
@@ -28,10 +28,19 @@ export namespace assert {
     }
 
     export class AssertionFailedError extends Error {
-        constructor(message: string) {
+        expected: any;
+        actual: any;
+
+        constructor(message: string, expected?: any, actual?: any) {
             super(message);
             this.name = this.constructor.name;
             Object.setPrototypeOf(this, AssertionFailedError.prototype);
+
+            if (typeof expected !== 'undefined')
+                this.expected = expected;
+
+            if (typeof actual !== 'undefined')
+                this.actual = actual;
         }
     }
 }
