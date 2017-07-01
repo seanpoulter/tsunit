@@ -26,6 +26,7 @@ Following along with Kent Beck's **Test-Driven Development: By Example**.
   - Report the test suite run duration
   - Report the test case run duration
   - ~~Create a test runner (e.g.: node app [directory])~~
+  - Accept a file to exclude to the app
   - Accept a file as an argument to the app
   - Accept a glob as an argument to the app
   - Accept a list of directory, file, or globs
