@@ -1,5 +1,6 @@
-import {TestCase, assert} from '../src';
-import {App, InvalidCommandLineArgumentError} from '../src/App';
+import { TestCase, assert } from '../src';
+import { App } from '../src/App';
+import { InvalidCommandLineArgumentError } from "../src/InvalidCommandLineArgumentError";
 
 export class AppTest extends TestCase {
     testParseArguments() {

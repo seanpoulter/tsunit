@@ -1,5 +1,6 @@
-import {TestRunner} from './TestRunner';
-import {statSync} from 'fs';
+import { TestRunner } from './TestRunner';
+import { InvalidCommandLineArgumentError } from './InvalidCommandLineArgumentError';
+import { statSync } from 'fs';
 
 function isDirectory(path: string | Buffer): boolean {
     let stats = statSync(path);
@@ -61,14 +62,5 @@ class AppConfig {
         this.directory = 'test';
     }
 }
-
-export class InvalidCommandLineArgumentError extends Error {
-    constructor(message?: string) {
-        super(message);
-        this.name = this.constructor.name;
-        Object.setPrototypeOf(this, InvalidCommandLineArgumentError.prototype);
-    }
-}
-
 
 new App(process.argv).run();
