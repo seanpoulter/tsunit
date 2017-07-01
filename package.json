@@ -1,14 +1,16 @@
 {
-  "name": "xunit",
+  "name": "tsunit",
   "version": "0.0.0",
-  "description": "Recreating Kent Beck's xUnit example from Test-Driven Development: By Example",
+  "description": "An xUnit test framework written with TypeScript that follows and builds on Kent Beck's example in Test-Driven Development: By Example",
   "scripts": {
-    "tsc": "tsc",
+    "start": "npm test",
     "pretest": "tsc",
-    "test": "node dist/src/App dist/test"
+    "test": "node dist/src/App dist/test",
+    "tsc": "tsc"
   },
   "keywords": [
     "xunit",
+    "tsunit",
     "tdd",
     "testing",
     "typescript"
