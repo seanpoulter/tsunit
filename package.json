@@ -1,13 +1,14 @@
 {
   "name": "tsunit",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "An xUnit test framework written with TypeScript that follows and builds on Kent Beck's example in Test-Driven Development: By Example",
   "scripts": {
     "start": "npm test",
     "pretest": "tsc",
-    "test": "node dist/src/cli dist/test",
-    "tsc": "tsc"
+    "test": "node ./bin/tsunit --exclude=dist/test/WasRun.js dist/test",
+    "install": "tsc"
   },
+  "bin": "./bin/tsunit.js",
   "keywords": [
     "xunit",
     "tsunit",
@@ -25,7 +26,7 @@
     "url": "https://github.com/seanpoulter/tsunit"
   },
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "@types/node": "^8.0.1",
     "typescript": "^2.3.4"
   }

@@ -56,5 +56,3 @@ export class App {
         }
     }
 }
-
-new App(process.argv).run();
