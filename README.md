@@ -2,6 +2,14 @@
 
 Following along with Kent Beck's **Test-Driven Development: By Example**.
 
+## Install
+
+```.sh
+npm install --save-dev https://github.com/seanpoulter/tsunit
+tsunit [directory]
+# or on Windows .\node_modules\.bin\tsunit
+```
+
 ## To-do List
 
   - ~~Invoke the test method~~
