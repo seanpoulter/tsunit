@@ -24,7 +24,7 @@ export namespace assert {
     }
 
     function formatValue(arg: any): string {
-        if (arg === null)
+        if (arg === null || typeof arg === 'undefined')
             return arg;
 
         if (typeof arg === 'string')
