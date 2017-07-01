@@ -24,9 +24,13 @@ export namespace assert {
     }
 
     function formatValue(arg: any): string {
+        if (arg === null)
+            return arg;
+
         if (typeof arg === 'string')
             return `'${arg}'`;
-        else if (arg instanceof Array)
+
+        if (arg instanceof Array)
             return `[${arg.map(formatValue)}]`;
 
         return arg.toString();

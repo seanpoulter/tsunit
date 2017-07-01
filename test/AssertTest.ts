@@ -32,6 +32,16 @@ export class AssertTest extends TestCase {
         }
     }
 
+    testEqualsFailedFormattingWithNull() {
+        try {
+            assert.equals(0, null);
+            assert.fail('Expected an AssertionFailedError to be thrown');
+        }
+        catch (e) {
+            assert.equals('Expected 0 but was null', e.message);
+        }
+    }
+
     testArrayEquals() {
         assert.equals([1, 2, 3], [1, 2, 3]);
     }
