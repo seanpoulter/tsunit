@@ -1,36 +1,38 @@
 import { TestRunner } from '../TestRunner';
-import { InvalidArgumentError } from './InvalidArgumentError';
-import { statSync } from 'fs';
-
-function isDirectory(path: string | Buffer): boolean {
-    let stats = statSync(path);
-    return stats.isDirectory();
-}
+import { Arguments } from './Arguments';
 
 export class App {
-    config: AppConfig
+    private args: Arguments
+    directory: string
+    exclude: string
 
     constructor(argv: string[]) {
-        this.config = App.parseArguments(argv);
+        this.args = new Arguments(argv);
+
+        this.setDirectory();
+        this.setExclude();
     }
 
-    static parseArguments(argv: string[]): AppConfig {
+    private setDirectory(): void {
+        if (this.args.directories.size === 0)
+            this.directory = 'test'
+        else if (this.args.directories.size === 1)
+            this.directory = this.args.directories.values().next().value;
+        else
+            throw new Error("Handling more than one directory has not been implemented");
+    }
 
-        // Remove the leading values for the  process.execPath, and JS path
-        argv.splice(0, 2);
-
-        if (argv.length > 1)
-            throw new InvalidArgumentError();
-
-        let config = new AppConfig();
-        if (argv.length === 1 && isDirectory(argv[0]))
-            config.directory = argv[0];
-
-        return config;
+    private setExclude() {
+        if (this.args.exclude.size === 0)
+            this.exclude = ''
+        else if (this.args.exclude.size === 1)
+            this.exclude = this.args.exclude.values().next().value;
+        else
+            throw new Error("Handling more than one excluded file has not been implemented");
     }
 
     run() {
-        let result = TestRunner.run(this.config.directory);
+        let result = TestRunner.run(this.directory, this.exclude);
 
         console.log(result.summary());
         console.log();
@@ -52,14 +54,6 @@ export class App {
             }
             console.log();
         }
-    }
-}
-
-class AppConfig {
-    directory: string;
-
-    constructor() {
-        this.directory = 'test';
     }
 }
 

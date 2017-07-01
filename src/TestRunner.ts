@@ -1,10 +1,9 @@
-import {relative, sep} from 'path';
-import {TestCaseConstructor, TestCase} from './TestCase';
-import {TestResult} from './TestResult';
-import {TestSuite} from './TestSuite';
+import { TestCaseConstructor, TestCase } from './TestCase';
+import { TestResult } from './TestResult';
+import { TestSuite } from './TestSuite';
 
-import {readdirSync, statSync} from 'fs';
-import {join} from 'path';
+import { readdirSync, statSync } from 'fs';
+import { relative, sep, join } from 'path';
 
 function onWindows(): boolean {
     return process.platform.startsWith('win');
@@ -86,25 +85,36 @@ export class TestRunner {
         return result;
     }
 
-    static findFiles(path: string): string[] {
+    static findFiles(path: string, exclude?: string): string[] {
         let filepaths = [];
+
+        if (exclude) {
+            if (sep === '/')
+                exclude = exclude.replace(/\\/g, sep)
+            else
+                exclude = exclude.replace(/\//g, sep)
+        }
 
         let names = readdirSync(path);
         for (let i = 0; i < names.length; i += 1) {
             let p = join(path, names[i]);
             let stats = statSync(p);
 
-            if (stats.isFile())
+            if (stats.isFile()) {
+                if (exclude && exclude === p)
+                    continue;
+
                 filepaths.push(p);
+            }
             else if (stats.isDirectory())
-                filepaths.push(...TestRunner.findFiles(p));
+                filepaths.push(...TestRunner.findFiles(p, exclude));
         }
 
         return filepaths;
     }
 
-    static run(path: string): TestResult {
-        let paths = TestRunner.findFiles(path);
+    static run(path: string, exclude?: string): TestResult {
+        let paths = TestRunner.findFiles(path, exclude);
         return TestRunner.runModules(...paths);
     }
 }

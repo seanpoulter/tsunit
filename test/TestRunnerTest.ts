@@ -31,12 +31,11 @@ export class TestRunnerTest extends TestCase {
         assert.equals(2, result.errorCount);
     }
 
-    testFindFiles() {
+    testFindFiles(exclude: string) {
         let actual = TestRunner.findFiles('dist/test');
-        assert.equals(true, actual.length >= 8);
+        assert.equals(true, actual.length >= 7);
 
         const expected = [
-            join('dist', 'test', 'AppTest.js'),
             join('dist', 'test', 'AssertTest.js'),
             join('dist', 'test', 'IgnoreDecoratorTest.js'),
             join('dist', 'test', 'TestCaseTest.js'),
@@ -51,6 +50,23 @@ export class TestRunnerTest extends TestCase {
             let index = actual.indexOf(expected[i]);
             assert.equals(true, index !== NOT_FOUND);
         }
+    }
+
+    findFilesWithExclusion(sep: string) {
+        let exclude = ['dist', 'test', 'WasRun.js'].join(sep);
+        let expected = join(exclude);
+
+        let actual = TestRunner.findFiles('dist/test', exclude);
+        const NOT_FOUND = -1;
+        assert.equals(NOT_FOUND, actual.indexOf(expected));
+    }
+
+    testFindFilesWithExclusion_POSIX() {
+        this.findFilesWithExclusion('/');
+    }
+
+    testFindFilesWithExclusion_Windows() {
+        this.findFilesWithExclusion('\\');
     }
 }
 

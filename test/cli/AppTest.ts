@@ -1,21 +1,42 @@
-import { TestCase, assert } from '../../src';
+import { TestCase, assert } from '../../src/';
 import { App } from '../../src/cli/App';
-import { InvalidArgumentError } from '../../src/cli/InvalidArgumentError'
 
 export class AppTest extends TestCase {
-    testParseArguments() {
-        let config = App.parseArguments(['', '']);
-        assert.equals('test', config.directory);
+    testDefaultDirectory() {
+        let args = ['', '']
+        let sut = new App(args);
+        assert.equals('test', sut.directory);
     }
 
-    testParseInvalidArguments() {
+    testDirectory() {
+        let args = ['', '', 'dist\\test'];
+        let sut = new App(args);
+        assert.equals('dist\\test', sut.directory);
+    }
+
+    testExclude() {
+        let args = ['', '', '--exclude=dist\\test\\WasRun.js'];
+        let sut = new App(args);
+        assert.equals('dist\\test\\WasRun.js', sut.exclude);
+    }
+
+    testMoreThanOneDirectory() {
+        let args = ['', '', 'test', 'dist\\test'];
         try {
-            console.dir(App)
-            App.parseArguments(['', '', 'dist/test', 'true']);
-            assert.fail('Expected an InvalidArgumentError to be thrown');
+            new App(args);
+            assert.fail('Expected an Error to be thrown');
         }
         catch (e) {
-            assert.equals(true, e instanceof InvalidArgumentError);
+        }
+    }
+
+    testMoreThanOneExcludedFile() {
+        let args = ['', '', '--exclude=dist\\test\\WasRun.js','--exclude=dist\\test\\SlowTest.js'];
+        try {
+            new App(args);
+            assert.fail('Expected an Error to be thrown');
+        }
+        catch (e) {
         }
     }
 }
