@@ -1,5 +1,6 @@
-import {TestCase, assert} from '../src/';
-import {TestRunner} from '../src/TestRunner';
+import { TestCase, assert } from '../src/';
+import { TestRunner } from '../src/TestRunner';
+import { join } from 'path';
 
 export class TestRunnerTest extends TestCase {
     testConvertToModuleId() {
@@ -32,18 +33,24 @@ export class TestRunnerTest extends TestCase {
 
     testFindFiles() {
         let actual = TestRunner.findFiles('dist/test');
-        assert.equals(8, actual.length);
+        assert.equals(true, actual.length >= 8);
 
         const expected = [
-            'dist\\test\\AppTest.js',
-            'dist\\test\\AssertTest.js',
-            'dist\\test\\IgnoreDecoratorTest.js',
-            'dist\\test\\TestCaseTest.js',
-            'dist\\test\\TestResultTest.js',
-            'dist\\test\\TestRunnerTest.js',
-            'dist\\test\\TestSuiteTest.js',
-            'dist\\test\\WasRun.js'
+            join('dist', 'test', 'AppTest.js'),
+            join('dist', 'test', 'AssertTest.js'),
+            join('dist', 'test', 'IgnoreDecoratorTest.js'),
+            join('dist', 'test', 'TestCaseTest.js'),
+            join('dist', 'test', 'TestResultTest.js'),
+            join('dist', 'test', 'TestRunnerTest.js'),
+            join('dist', 'test', 'TestSuiteTest.js'),
+            join('dist', 'test', 'WasRun.js')
         ];
-        assert.equals(expected, actual);
+
+        const NOT_FOUND = -1;
+        for (let i = 0; i < expected.length; i += 1) {
+            let index = actual.indexOf(expected[i]);
+            assert.equals(true, index !== NOT_FOUND);
+        }
     }
 }
+
