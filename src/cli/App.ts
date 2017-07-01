@@ -1,5 +1,5 @@
-import { TestRunner } from './TestRunner';
-import { InvalidCommandLineArgumentError } from './InvalidCommandLineArgumentError';
+import { TestRunner } from '../TestRunner';
+import { InvalidArgumentError } from './InvalidArgumentError';
 import { statSync } from 'fs';
 
 function isDirectory(path: string | Buffer): boolean {
@@ -20,7 +20,7 @@ export class App {
         argv.splice(0, 2);
 
         if (argv.length > 1)
-            throw new InvalidCommandLineArgumentError();
+            throw new InvalidArgumentError();
 
         let config = new AppConfig();
         if (argv.length === 1 && isDirectory(argv[0]))

@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npm test",
     "pretest": "tsc",
-    "test": "node dist/src/App dist/test",
+    "test": "node dist/src/cli dist/test",
     "tsc": "tsc"
   },
   "keywords": [

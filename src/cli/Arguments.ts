@@ -1,5 +1,5 @@
+import { InvalidArgumentError } from "./InvalidArgumentError";
 import { statSync } from 'fs';
-import { InvalidCommandLineArgumentError } from "./InvalidCommandLineArgumentError";
 
 function isNotDirectory(path: string | Buffer): boolean {
     try {
@@ -14,7 +14,7 @@ function isNotDirectory(path: string | Buffer): boolean {
     }
 }
 
-export class CommandLineArguments {
+export class Arguments {
     directories: Set<string>
     exclude: Set<string>
 
@@ -48,14 +48,14 @@ export class CommandLineArguments {
     private parseOption(arg: string) {
         let match = /^--([^=]+)=(.*$)/.exec(arg);
         if (!match)
-            throw new InvalidCommandLineArgumentError(arg);
+            throw new InvalidArgumentError(arg);
 
         let [, longName, value] = match;
         if (longName === 'exclude') {
             this.exclude.add(value);
         }
         else {
-            throw new InvalidCommandLineArgumentError(arg);
+            throw new InvalidArgumentError(arg);
         }
     }
 

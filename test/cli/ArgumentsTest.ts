@@ -1,17 +1,17 @@
-import { TestCase, assert } from '../src/';
-import { CommandLineArguments } from '../src/CommandLineArguments';
-import { InvalidCommandLineArgumentError } from '../src/InvalidCommandLineArgumentError';
+import { TestCase, assert } from '../../src/';
+import { Arguments } from '../../src/cli/Arguments';
+import { InvalidArgumentError } from '../../src/cli/InvalidArgumentError';
 
-export class CommandLineArgumentsTest extends TestCase {
+export class ArgumentsTest extends TestCase {
     testDefaultValues() {
         let args = ['', ''];
-        let sut = new CommandLineArguments(args);
+        let sut = new Arguments(args);
         assert.equals(0, sut.directories.size);
     }
 
     testDirectory() {
         let args = ['', '', 'dist\\test'];
-        let sut = new CommandLineArguments(args);
+        let sut = new Arguments(args);
         assert.equals(true, sut.directories.has('dist\\test'));
         assert.equals(1, sut.directories.size);
     }
@@ -19,7 +19,7 @@ export class CommandLineArgumentsTest extends TestCase {
     testDirectoryNotFound() {
         let args = ['', '', 'invalid\\directory'];
         try {
-            new CommandLineArguments(args);
+            new Arguments(args);
             assert.fail('Expected an Error to be thrown');
         }
         catch (e) {
@@ -29,7 +29,7 @@ export class CommandLineArgumentsTest extends TestCase {
 
     testExclude() {
         let args = ['', '', '--exclude=dist\\test\\WasRun.js', 'dist\\test'];
-        let sut = new CommandLineArguments(args);
+        let sut = new Arguments(args);
         assert.equals(true, sut.exclude.has('dist\\test\\WasRun.js'))
         assert.equals(1, sut.exclude.size);
     }
@@ -37,11 +37,11 @@ export class CommandLineArgumentsTest extends TestCase {
     testInvalidOption() {
         let args = ['', '', '--help'];
         try {
-            new CommandLineArguments(args);
-            assert.fail('Expected an InvalidCommandLineArgumentError error to be thrown');
+            new Arguments(args);
+            assert.fail('Expected an InvalidArgumentError error to be thrown');
         }
         catch (e) {
-            assert.equals(true, e instanceof InvalidCommandLineArgumentError);
+            assert.equals(true, e instanceof InvalidArgumentError);
         }
     }
 }
